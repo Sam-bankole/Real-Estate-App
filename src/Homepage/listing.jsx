@@ -5,7 +5,7 @@ import { PiSquareLogo } from "react-icons/pi";
 import { MdFavoriteBorder } from "react-icons/md";
 import { IoEyeOutline } from "react-icons/io5";
 import { PiShareFat } from "react-icons/pi";
-import { initializeApp } from "'firebase/app'";
+import { initializeApp } from "firebase/app";
 import {
   getDatabase,
   ref,
