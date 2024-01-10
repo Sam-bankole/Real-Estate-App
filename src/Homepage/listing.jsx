@@ -5,12 +5,12 @@ import { PiSquareLogo } from "react-icons/pi";
 import { MdFavoriteBorder } from "react-icons/md";
 import { IoEyeOutline } from "react-icons/io5";
 import { PiShareFat } from "react-icons/pi";
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+import { initializeApp } from "'firebase/app'";
 import {
   getDatabase,
   ref,
   onValue,
-} from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
+} from "firebase/database";
 
 export default function Listing() {
   const [properties, setProperties] = useState([]);

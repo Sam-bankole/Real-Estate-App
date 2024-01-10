@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+import { initializeApp } from "firebase/app";
 import {
   getDatabase,
   ref as databaseRef,
   get,
   set,
   onValue,
-} from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
+} from "firebase/database";
 import { MdFavoriteBorder } from "react-icons/md";
 
 const firebaseConfig = {
