@@ -196,3 +196,22 @@ button {
 .invisible-scrollbar::-webkit-scrollbar-thumb {
   background-color: transparent;
 }
+
+
+
+/* React Modal */
+
+.react-modal-carosel{
+  height: 80vh;
+}
+@media screen and (max-width:426px ) {
+  .react-modal-carosel{
+    height: 50vh;
+  }
+}
+@media screen and (max-width:321px ) {
+  .react-modal-carosel{
+    height: 40vh;
+  }
+}
+ 

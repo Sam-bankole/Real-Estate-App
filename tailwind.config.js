@@ -18,8 +18,11 @@ module.exports = {
       'sm': { max: "426px" },
       '2xm': { min: "426px" },
 
-      '2sm': { max: "375px" },
-      '3xm': { min: "375px" },
+      '2sm': { max: "376px" },
+      '3xm': { min: "376px" },
+
+      '2xsm': { max: "321px" },
+      '3xxm': { min: "321px" },
     },
   },
   plugins: [],
