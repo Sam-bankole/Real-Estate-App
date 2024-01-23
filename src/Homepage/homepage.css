@@ -214,4 +214,23 @@ button {
     height: 40vh;
   }
 }
- 
+
+
+/* React Modal Tab click btn */
+
+/* @keyframes glowing {
+  0% {
+    background-color: #fff7db;
+  }
+  50% {
+    background-color: #ffd900, #fbff00;
+  }
+  100% {
+    background-color: #ffbb00;
+  }
+}
+
+.TabGlow{
+  animation: glowing 2s infinite;
+  border-radius: 50%;
+} */

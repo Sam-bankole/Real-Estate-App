@@ -1,37 +1,24 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState, useRef } from "react";
 import ReactModal from "react-modal";
 import Contactform from "../contactForm";
-import Map from "../map";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
 import { LuBed } from "react-icons/lu";
 import { LuBath } from "react-icons/lu";
 import { PiSquareLogo } from "react-icons/pi";
-import { MdFavoriteBorder } from "react-icons/md";
-import { IoEyeOutline } from "react-icons/io5";
+import { IoIosShareAlt } from "react-icons/io";
 import { PiHandTapBold } from "react-icons/pi";
+import { MdFavoriteBorder } from "react-icons/md";
 import { FaArrowAltCircleLeft } from "react-icons/fa";
 import { FaArrowAltCircleRight } from "react-icons/fa";
-import { initializeApp } from "firebase/app";
 import { getDatabase, ref, onValue } from "firebase/database";
+import app from "../fireBase";
 
 export default function Listing() {
   const [properties, setProperties] = useState([]);
 
   useEffect(() => {
-    const firebaseConfig = {
-      apiKey: "AIzaSyBjw6uBT7UdCYFeOEuse-yP7XmAo4wvWkc",
-      authDomain: "real-estate-pro-bdf8b.firebaseapp.com",
-      databaseURL:
-        "https://real-estate-pro-bdf8b-default-rtdb.europe-west1.firebasedatabase.app",
-      projectId: "real-estate-pro-bdf8b",
-      storageBucket: "real-estate-pro-bdf8b.appspot.com",
-      messagingSenderId: "990812988530",
-      appId: "1:990812988530:web:903cc84c1c10ab05a64eeb",
-      measurementId: "G-3BE0QXKHFV",
-    };
-
-    const app = initializeApp(firebaseConfig);
     const database = getDatabase(app);
     const addedPropertyInDB = ref(database, "Properties");
 
@@ -41,7 +28,7 @@ export default function Listing() {
 
         if (propertyData) {
           const propertyList = Object.values(propertyData);
-          const homeDisplay = propertyList.slice(-8)
+          const homeDisplay = propertyList.slice(-8);
           setProperties(homeDisplay);
         }
       });
@@ -130,10 +117,6 @@ export default function Listing() {
       >
         {properties.map((property, index) => (
           <div
-            onClick={() => {
-              openModal();
-              setSelectedProperty(property);
-            }}
             key={index}
             className="w-72 bg-slate-100 rounded-lg shadow-lg sm:w-72 "
           >
@@ -171,18 +154,29 @@ export default function Listing() {
                   </div>
                 </div>
                 <div className=" pb-2 flex justify-between items-center mt-3">
-                  <div className=" flex flex-col items-center">
-                    <MdFavoriteBorder />
-                    <div className=" text-xs">58</div>
+                  <div
+                    onClick={() => {
+                      openModal();
+                      setSelectedProperty(property);
+                    }}
+                    className=" flex flex-col items-center cursor-pointer"
+                  >
+                    <PiHandTapBold className="TabGlow" />
+                    <div className=" text-xs">Tap Here</div>
                   </div>
                   <div className=" flex flex-col items-center">
-                    <IoEyeOutline />
-                    <div className=" text-xs">233</div>
+                    <MdFavoriteBorder className=" bg-green-500 fill-transparent rounded-xl" />
                   </div>
-                  <div className=" flex flex-col items-center">
-                    <PiHandTapBold />
-                    <div className=" text-xs">Tap item</div>
-                  </div>
+                  <a
+                    href="#"
+                    target="_blank"
+                    className=" flex flex-col items-center"
+                  >
+                    <div className=" flex flex-col items-center">
+                      <IoIosShareAlt />
+                      <div className=" text-xs">share</div>
+                    </div>
+                  </a>
                 </div>
               </div>
             </div>
@@ -242,6 +236,11 @@ export default function Listing() {
                 alt=""
                 className=" w-screen rounded-md shadow-lg react-modal-carosel"
               />
+              <img
+                src={selectedProperty.img[4]}
+                alt=""
+                className=" w-screen rounded-md shadow-lg react-modal-carosel"
+              />
               {/* </div> */}
             </Carousel>
             <div className=" flex sm:flex-wrap justify-between items-center">
@@ -282,26 +281,42 @@ export default function Listing() {
                   <div className=" font-semibold text-lg mb-3 2sm:text-base">
                     Property Description
                   </div>
-                  <pre className=" font-sans mb-3 2sm:text-sm">
+                  <pre className=" font-sans mb-3 2sm:text-sm w-4/5 md:w-full md:whitespace-pre-line whitespace-pre-wrap">
                     {selectedProperty.despt}
                   </pre>
                 </div>
-                <Map latitude={18.52043} longitude={73.856743} />
+                <div className=" mb-12">
+                  <div className=" font-semibold text-lg 2sm:text-base">
+                    Map Location
+                  </div>
+                  <div className=" h-72 w-4/5 md:w-full border-2 rounded-md">
+                    <iframe
+                      title="Map"
+                      src={selectedProperty.googleMap}
+                      width="100%"
+                      height="100%"
+                      frameBorder={0}
+                      allowFullScreen=""
+                      loading="lazy"
+                      referrerpolicy="no-referrer-when-downgrade"
+                    ></iframe>
+                  </div>
+                </div>
                 <div className=" mb-12">
                   <div className=" font-semibold text-lg 2sm:text-base">
                     Evironmental Tour
                   </div>
                   <div className=" h-72 w-4/5 md:w-full border-2 rounded-md">
                     <iframe
-                    title="Environmental Tour"
-                      class="ku-embed"
+                      title="Environmental Tour"
+                      className="ku-embed"
                       width="100%"
                       height="100%"
-                      frameborder="0"
+                      frameBorder="0"
                       allow="xr-spatial-tracking; gyroscope; accelerometer"
-                      allowfullscreen
+                      allowFullScreen
                       scrolling="no"
-                      src="https://kuula.co/share/collection/7YQq1?logo=1&info=1&fs=1&vr=0&zoom=1&sd=1&autop=10&autopalt=1&thumbs=1"
+                      src={selectedProperty.exterior}
                     ></iframe>
                   </div>
                 </div>
@@ -311,15 +326,15 @@ export default function Listing() {
                   </div>
                   <div className=" h-72 w-4/5 md:w-full border-2 rounded-md">
                     <iframe
-                    title="Building Tour"
-                      class="ku-embed"
+                      title="Building Tour"
+                      className="ku-embed"
                       width="100%"
                       height="100%"
-                      frameborder="0"
+                      frameBorder="0"
                       allow="xr-spatial-tracking; gyroscope; accelerometer"
-                      allowfullscreen
+                      allowFullScreen
                       scrolling="no"
-                      src="https://kuula.co/share/collection/7kvZ8?logo=1&info=1&fs=1&vr=0&zoom=1&sd=1&autop=10&autopalt=1&thumbs=1"
+                      src={selectedProperty.interior}
                     ></iframe>
                   </div>
                 </div>
